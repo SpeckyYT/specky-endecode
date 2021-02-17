@@ -1,0 +1,28 @@
+{
+  "name": "specky-endecode",
+  "version": "0.0.0",
+  "description": "A two-way enconding function for text.",
+  "main": "index.js",
+  "types": "index.d.ts",
+  "scripts": {
+    "test": "node library.test.js",
+    "benchmark": "node benchmark.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SpeckyYT/specky-endecode.git"
+  },
+  "keywords": [
+    "text",
+    "encode",
+    "decode",
+    "convert",
+    "two-way"
+  ],
+  "author": "SpeckyYT",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/SpeckyYT/specky-endecode/issues"
+  },
+  "homepage": "https://github.com/SpeckyYT/specky-endecode#readme"
+}
