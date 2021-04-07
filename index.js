@@ -25,14 +25,10 @@ function endecode(input, options){
             defaultWhitespaces
     ).split('');
 
-    const spacont = [...input]
-    .filter(v => [...chars1,...whitespaces].includes(v))
-    .join('')
-    .trim()
-    .replace(/(\s|\n)+/g,'$1')
-    .split('');
+    const spacont = input.split('')
+    .filter(v => [...chars1,...whitespaces].includes(v));
 
-    const content = [...spacont]
+    const content = spacont
     .filter(v => chars1.includes(v))
     .join('');
 
@@ -51,18 +47,18 @@ function endecode(input, options){
     // Will pick some random characters from the first array and pushes it to the second one
     for(let i = 0; chars2.length < chars1.length; i++){
         const pos = (content.length * 5 + floor(chars1.length / 2) + i*i) % chars1.length;
-        chars2.push(chars1[pos]);
-        chars1.splice(pos,1);
+        chars2.push(chars1.splice(pos,1)[0]);
     }
 
     if(options.log) console.table([chars1,chars2]);
 
     let output = '';
 
-    [...content].forEach((v,i) => {
+    for(let i = 0; i < content.length; i++){
+        const c = content[i];
         // Gets the letter from one or the other array
-        const char = getIndex(v);
-        output += getOppositeLetter(v);
+        const char = getIndex(c);
+        output += getOppositeLetter(c);
 
         // Manages white spaces
         if(whitespaces.includes(spacont[output.length])){
@@ -109,7 +105,7 @@ function endecode(input, options){
             console.log(i);
             console.table([chars1,chars2]);
         }
-    });
+    };
 
     return output;
 }
