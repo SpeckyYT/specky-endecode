@@ -10,12 +10,20 @@ npm i specky-endecode
 const endecode = require('specky-endecode');
 const text = 'It will never get encoded.';  // dead meme
 const encoded = endecode(text);             // K( ).€k IY"gg P%1 Rka#0;-T
-const decoded = endecode(encoded)           // It will never get encoded.
+const decoded = endecode(encoded);          // It will never get encoded.
+
+const options = {
+    characters: 'abcd', // has to be an even number of characters
+    whitespaces: '\s\r\n',
+    log: true,
+};
+
+const withOptions = endecode('abacaba', options); // bcdabcb
 ```
 
 ## Notes
 
-The supported characters are the following:
+The supported characters by default are the following:
 ```
 ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789()[]{}!\"§$%&/=?`´*-+<>\\#'_^°~,.;:|@€
 ```
@@ -28,7 +36,7 @@ This system obviously has flaws, here are some I found:
 - newlines and spaces don't change the outcome
 
 
-## Benchmark (encoded and decoded)
+## Benchmark (endecoded twice)
 | String Length | Time      |
 |---------------|-----------|
 | 1             | 1ms       |
