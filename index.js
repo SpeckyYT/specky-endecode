@@ -1,14 +1,29 @@
 const { floor, cos, tan, abs } = Math;
 
-const endecode = (input, log) => {
-    input = input || '';
+const defaultChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789()[]{}!\"§$%&/=?`´*-+<>\\#'_^°~,.;:|@€";
+const defaultWhitespaces = ' \n\r';
 
-    const chars1 = [..."ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789()[]{}!\"§$%&/=?`´*-+<>\\#'_^°~,.;:|@€"];
-    const chars2 = [];
+function endecode(input, options){
+    if(typeof input != 'string' || !input) return '';
+    if(typeof options != 'object' || !options) options = {};
+
+    const chars1 = (
+        typeof options.characters == 'string' &&
+        options.characters.length ?
+            option.characters :
+            defaultChars
+    ).split('');
 
     if(chars1.length % 2) chars1.pop();
 
-    const whitespaces = [' ','\n'];
+    const chars2 = [];
+
+    const whitespaces = (
+        typeof options.whitespaces == 'string' &&
+        options.whitespaces.length ?
+            option.whitespaces :
+            defaultWhitespaces
+    ).split('');
 
     const spacont = [...input]
     .filter(v => [...chars1,...whitespaces].includes(v))
@@ -40,7 +55,7 @@ const endecode = (input, log) => {
         chars1.splice(pos,1);
     }
 
-    if(log) console.table([chars1,chars2]);
+    if(options.log) console.table([chars1,chars2]);
 
     let output = '';
 
@@ -90,7 +105,7 @@ const endecode = (input, log) => {
         change(cos(i*7)*chars1.length,chars2.length-1);
 
         // Log
-        if(log){
+        if(options.log){
             console.log(i);
             console.table([chars1,chars2]);
         }
