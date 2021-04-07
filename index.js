@@ -54,16 +54,19 @@ function endecode(input, options){
 
     let output = '';
 
-    for(let i = 0; i < content.length; i++){
-        const c = content[i];
+    for(let index = 0, i = -1; index < spacont.length; index++){
+        // Manages white spaces
+        if(whitespaces.includes(spacont[index])){
+            output += spacont[index];
+            continue;
+        }
+
+        const c = spacont[index];
         // Gets the letter from one or the other array
         const char = getIndex(c);
         output += getOppositeLetter(c);
 
-        // Manages white spaces
-        if(whitespaces.includes(spacont[output.length])){
-            output += spacont[output.length];
-        }
+        i++; // increment the index for shuffling
 
         // This will shift the second array after each requested letter
         chars2.unshift(chars2[chars2.length-1]);
