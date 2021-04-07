@@ -3,44 +3,44 @@ const { floor, cos, tan, abs } = Math;
 const endecode = (input, log) => {
     input = input || '';
 
-    const inout = [..."ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789()[]{}!\"§$%&/=?`´*-+<>\\#'_^°~,.;:|@€"];
-    const coppy = [];
+    const chars1 = [..."ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789()[]{}!\"§$%&/=?`´*-+<>\\#'_^°~,.;:|@€"];
+    const chars2 = [];
 
-    if(inout.length % 2) inout.pop();
+    if(chars1.length % 2) chars1.pop();
 
     const whitespaces = [' ','\n'];
 
     const spacont = [...input]
-    .filter(v => [...inout,...whitespaces].includes(v))
+    .filter(v => [...chars1,...whitespaces].includes(v))
     .join('')
     .trim()
     .replace(/(\s|\n)+/g,'$1')
     .split('');
 
     const content = [...spacont]
-    .filter(v => inout.includes(v))
+    .filter(v => chars1.includes(v))
     .join('');
 
     const getIndex = (letter) =>
-        inout.includes(letter) ? inout.indexOf(letter) : (coppy.includes(letter) ? coppy.indexOf(letter) : 0);
+        chars1.includes(letter) ? chars1.indexOf(letter) : (chars2.includes(letter) ? chars2.indexOf(letter) : 0);
 
     const getOppositeLetter = (letter) =>
-        inout.includes(letter) ? coppy[getIndex(letter)] : (coppy.includes(letter) ? inout[getIndex(letter)] : '');
+        chars1.includes(letter) ? chars2[getIndex(letter)] : (chars2.includes(letter) ? chars1[getIndex(letter)] : '');
 
     const change = (eq1,eq2) => {
-        eq1 = floor(isNaN(eq1) ? 0 : abs(eq1)) % inout.length;
-        eq2 = floor(isNaN(eq2) ? 0 : abs(eq2)) % coppy.length;
-        [inout[eq1],coppy[eq2]] = [coppy[eq2],inout[eq1]];
+        eq1 = floor(isNaN(eq1) ? 0 : abs(eq1)) % chars1.length;
+        eq2 = floor(isNaN(eq2) ? 0 : abs(eq2)) % chars2.length;
+        [chars1[eq1],chars2[eq2]] = [chars2[eq2],chars1[eq1]];
     }
 
     // Will pick some random characters from the first array and pushes it to the second one
-    for(let i = 0; coppy.length < inout.length; i++){
-        const pos = (content.length * 5 + floor(inout.length / 2) + i*i) % inout.length;
-        coppy.push(inout[pos]);
-        inout.splice(pos,1);
+    for(let i = 0; chars2.length < chars1.length; i++){
+        const pos = (content.length * 5 + floor(chars1.length / 2) + i*i) % chars1.length;
+        chars2.push(chars1[pos]);
+        chars1.splice(pos,1);
     }
 
-    if(log) console.table([inout,coppy]);
+    if(log) console.table([chars1,chars2]);
 
     let output = '';
 
@@ -55,12 +55,12 @@ const endecode = (input, log) => {
         }
 
         // This will shift the second array after each requested letter
-        coppy.unshift(coppy[coppy.length-1]);
-        coppy.pop();
+        chars2.unshift(chars2[chars2.length-1]);
+        chars2.pop();
         // This will push the first array after every 2 requested letters (but not the 3th)
         if(i % 3){
-            inout.push(inout[0]);
-            inout.shift();
+            chars1.push(chars1[0]);
+            chars1.shift();
         }
 
         // This shuffles the arrays for the character's position
@@ -71,12 +71,12 @@ const endecode = (input, log) => {
                 char
             );
             change(
-                j^(inout.length-1),
+                j^(chars1.length-1),
                 j
             );
             change(
-                j*j+(inout.length/2),
-                j*4+(coppy.length/3)
+                j*j+(chars1.length/2),
+                j*4+(chars2.length/3)
             );
         }
         // This shuffles the arrays with some arbitrary formulas
@@ -87,12 +87,12 @@ const endecode = (input, log) => {
         change(i*i,i*8);
         change(tan(i*7)*50,i*3);
         change(i%3*7,(i*420/69+45)/16);
-        change(cos(i*7)*inout.length,coppy.length-1);
+        change(cos(i*7)*chars1.length,chars2.length-1);
 
         // Log
         if(log){
             console.log(i);
-            console.table([inout,coppy]);
+            console.table([chars1,chars2]);
         }
     });
 
