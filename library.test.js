@@ -1,15 +1,36 @@
-const encode = require('.');
+const assert = require('assert');
+const endecode = require('.');
 
-const text = 'Not sure what to insert here.';
-const encoded = encode(text);   // i[% G=3` !{<§ f_ ~|h#fL +Q?Z)
-const normal = encode(encoded); // Not sure what to insert here.
+it('should check if the endecoded text is constant', () => {
+    const examples = [
+        [ 'abc', 'zdY' ],
+        [ 'ok', ';u' ],
+        [
+            'the quick brown fox jumps over the lazy dog',
+            '%us 4RyI. *:AZS ,>v rc"§r S€qS |FQ j|fY Gbn'
+        ],
+        [
+            'this module is dumb',
+            'Z`{0 G>:7|w ~= 18&H'
+        ],
+        [
+            'this\nis\njust\na\ntest\nto\nsee\nif\nnew\nlines\nwork',
+            '´([i\n5&\n~T`c\n7\ne#lN\n1T\nQsk\nk(\nZ°j\n(`HY^\nBD1u'
+        ],
+    ];
 
-console.log(text);
-console.log(encoded);
-console.log(normal);
+    for(const [normal, encoded] of examples){
+        assert.strictEqual(normal, endecode(encoded));
+        assert.strictEqual(encoded, endecode(normal));
+    }
+})
 
-if (text != normal) {
-    throw new Error("Doesn't work lmao");
-} else {
-    console.log('Works!');
-}
+it('should test the stability of the endecoder', () => {
+    const chars =
+        'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+    for(
+        let str = '';
+        str.length <= 50;
+        str += chars[Math.floor(Math.random()*chars.length)]
+    ) assert.strictEqual(str, endecode(endecode(str)))
+})
