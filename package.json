@@ -1,6 +1,6 @@
 {
   "name": "specky-endecode",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A two-way enconding function for text.",
   "main": "index.js",
   "types": "index.d.ts",
