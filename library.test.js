@@ -6,6 +6,14 @@ it('should check if the endecoded text is constant', () => {
         [ 'abc', 'zdY' ],
         [ 'ok', ';u' ],
         [
+            'abcdefg',
+            '_KQ}Gm!'
+        ],
+        [
+            'a  b  c  d  e  f  g',
+            '_  K  Q  }  G  m  !'
+        ],
+        [
             'the quick brown fox jumps over the lazy dog',
             '%us 4RyI. *:AZS ,>v rc"§r S€qS |FQ j|fY Gbn'
         ],
@@ -16,6 +24,10 @@ it('should check if the endecoded text is constant', () => {
         [
             'this\nis\njust\na\ntest\nto\nsee\nif\nnew\nlines\nwork',
             '´([i\n5&\n~T`c\n7\ne#lN\n1T\nQsk\nk(\nZ°j\n(`HY^\nBD1u'
+        ],
+        [
+            'aaaa\n\n\n\naaaa',
+            '5ubw\n\n\n\nK>Ho'
         ],
     ];
 
