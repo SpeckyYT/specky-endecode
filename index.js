@@ -10,7 +10,7 @@ function endecode(input, options){
     const chars1 = (
         typeof options.characters == 'string' &&
         options.characters.length ?
-            option.characters :
+            options.characters :
             defaultChars
     ).split('');
 
@@ -21,7 +21,7 @@ function endecode(input, options){
     const whitespaces = (
         typeof options.whitespaces == 'string' &&
         options.whitespaces.length ?
-            option.whitespaces :
+            options.whitespaces :
             defaultWhitespaces
     ).split('');
 
