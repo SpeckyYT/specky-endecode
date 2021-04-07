@@ -1,8 +1,8 @@
-type options = {
+type Options = {
     characters: String
     whitespaces: String
     log: Boolean
 }
 
-function endecode(input: string, options: options):string
+declare function endecode(input: String, options: Options):String
 export = endecode
