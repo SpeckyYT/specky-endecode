@@ -33,8 +33,8 @@ function endecode(input, options = {}) {
     const whitespaces = (
         typeof options.whitespaces == 'string' &&
         options.whitespaces.length ?
-        options.whitespaces :
-        defaultWhitespaces
+            options.whitespaces :
+            defaultWhitespaces
     ).split('');
 
     const spacont = input.split('')
