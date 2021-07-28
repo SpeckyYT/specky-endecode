@@ -1,20 +1,32 @@
-const { floor, cos, tan, abs } = Math;
+const {
+    floor,
+    cos,
+    tan,
+    abs
+} = Math;
 
 const defaultChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789()[]{}!\"§$%&/=?`´*-+<>\\#'_^°~,.;:|@€";
 const defaultWhitespaces = ' \n\r';
 
-function endecode(input, options){
-    if(typeof input != 'string' || !input) return '';
-    if(typeof options != 'object' || !options) options = {};
+/**
+ * Encodes or decodes input.
+ * 
+ * @param {string} input
+ * @param {Object} options
+ * @returns {string}
+ */
+function endecode(input, options = {}) {
+    if (typeof input != 'string' || !input) return '';
+    if (typeof options != 'object') options = {};
 
     const chars1 = (
         typeof options.characters == 'string' &&
         options.characters.length ?
-            options.characters :
-            defaultChars
+        options.characters :
+        defaultChars
     ).split('');
 
-    if(chars1.length % 2) chars1.pop();
+    if (chars1.length % 2) chars1.pop();
 
     const chars2 = [];
 
@@ -26,7 +38,7 @@ function endecode(input, options){
     ).split('');
 
     const spacont = input.split('')
-    .filter(v => [...chars1,...whitespaces].includes(v));
+    .filter(v => [...chars1, ...whitespaces].includes(v));
 
     const content = spacont
     .filter(v => chars1.includes(v))
@@ -38,25 +50,25 @@ function endecode(input, options){
     const getOppositeLetter = (letter) =>
         chars1.includes(letter) ? chars2[getIndex(letter)] : (chars2.includes(letter) ? chars1[getIndex(letter)] : '');
 
-    const change = (eq1,eq2) => {
+    const change = (eq1, eq2) => {
         eq1 = floor(isNaN(eq1) ? 0 : abs(eq1)) % chars1.length;
         eq2 = floor(isNaN(eq2) ? 0 : abs(eq2)) % chars2.length;
-        [chars1[eq1],chars2[eq2]] = [chars2[eq2],chars1[eq1]];
+        [chars1[eq1], chars2[eq2]] = [chars2[eq2], chars1[eq1]];
     }
 
     // Will pick some random characters from the first array and pushes it to the second one
-    for(let i = 0; chars2.length < chars1.length; i++){
-        const pos = (content.length * 5 + floor(chars1.length / 2) + i*i) % chars1.length;
-        chars2.push(chars1.splice(pos,1)[0]);
+    for (let i = 0; chars2.length < chars1.length; i++) {
+        const pos = (content.length * 5 + floor(chars1.length / 2) + i * i) % chars1.length;
+        chars2.push(chars1.splice(pos, 1)[0]);
     }
 
-    if(options.log) console.table([chars1,chars2]);
+    if (options.log) console.table([chars1, chars2]);
 
     let output = '';
 
-    for(let index = 0, i = -1; index < spacont.length; index++){
+    for (let index = 0, i = -1; index < spacont.length; index++) {
         // Manages white spaces
-        if(whitespaces.includes(spacont[index])){
+        if (whitespaces.includes(spacont[index])) {
             output += spacont[index];
             continue;
         }
@@ -69,44 +81,44 @@ function endecode(input, options){
         i++; // increment the index for shuffling
 
         // This will shift the second array after each requested letter
-        chars2.unshift(chars2[chars2.length-1]);
+        chars2.unshift(chars2[chars2.length - 1]);
         chars2.pop();
         // This will push the first array after every 2 requested letters (but not the 3th)
-        if(i % 3){
+        if (i % 3) {
             chars1.push(chars1[0]);
             chars1.shift();
         }
 
         // This shuffles the arrays for the character's position
         // (changing one letter may result in total chaos after it)
-        for(let j = 0; j < char; j++){
+        for (let j = 0; j < char; j++) {
             change(
                 j,
                 char
             );
             change(
-                j^(chars1.length-1),
+                j ^ (chars1.length - 1),
                 j
             );
             change(
-                j*j+(chars1.length/2),
-                j*4+(chars2.length/3)
+                j * j + (chars1.length / 2),
+                j * 4 + (chars2.length / 3)
             );
         }
         // This shuffles the arrays with some arbitrary formulas
-        change(0,i+1);
-        change(i+2,i+5);
-        change(i*3,i*5);
-        change(i+1,i*2);
-        change(i*i,i*8);
-        change(tan(i*7)*50,i*3);
-        change(i%3*7,(i*420/69+45)/16);
-        change(cos(i*7)*chars1.length,chars2.length-1);
+        change(0, i + 1);
+        change(i + 2, i + 5);
+        change(i * 3, i * 5);
+        change(i + 1, i * 2);
+        change(i * i, i * 8);
+        change(tan(i * 7) * 50, i * 3);
+        change(i % 3 * 7, (i * 420 / 69 + 45) / 16);
+        change(cos(i * 7) * chars1.length, chars2.length - 1);
 
         // Log
-        if(options.log){
+        if (options.log) {
             console.log(i);
-            console.table([chars1,chars2]);
+            console.table([chars1, chars2]);
         }
     };
 
