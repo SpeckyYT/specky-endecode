@@ -38,11 +38,11 @@ function endecode(input, options = {}) {
     ).split('');
 
     const spacont = input.split('')
-        .filter(v => [...chars1, ...whitespaces].includes(v));
+    .filter(v => [...chars1, ...whitespaces].includes(v));
 
     const content = spacont
-        .filter(v => chars1.includes(v))
-        .join('');
+    .filter(v => chars1.includes(v))
+    .join('');
 
     const getIndex = (letter) =>
         chars1.includes(letter) ? chars1.indexOf(letter) : (chars2.includes(letter) ? chars2.indexOf(letter) : 0);
