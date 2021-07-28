@@ -37,10 +37,10 @@ This system obviously has flaws, here are some I found:
 
 ## Benchmark
 
-```
+```console
 npm run benchmark
 ```
-
+```js
 2^0 (1 characters) x 118,839 ops/sec ±2.85% (85 runs sampled)
 2^1 (2 characters) x 78,256 ops/sec ±1.37% (89 runs sampled)
 2^2 (4 characters) x 53,342 ops/sec ±1.42% (88 runs sampled)
@@ -58,3 +58,4 @@ npm run benchmark
 2^14 (16384 characters) x 13.28 ops/sec ±5.45% (38 runs sampled)
 2^15 (32768 characters) x 7.17 ops/sec ±2.23% (22 runs sampled)
 2^16 (65536 characters) x 3.72 ops/sec ±3.12% (14 runs sampled)
+```
