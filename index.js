@@ -12,7 +12,7 @@ const defaultWhitespaces = ' \n\r';
  * Encodes or decodes input.
  * 
  * @param {string} input
- * @param {Object} 
+ * @param {Object} options
  * @returns {string}
  */
 function endecode(input, options = {}) {
